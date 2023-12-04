@@ -1,8 +1,11 @@
 import pandas as pd
 from fastapi import FastAPI
 
-app=FastAPI
+app = FastAPI()
 
+@app.get('/')
+def read_root():
+    return {"Hello": "World"}
 @app.get('/')
 def home():
     return {"API consultas Steam"}
