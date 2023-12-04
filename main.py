@@ -1,6 +1,5 @@
 import pandas as pd
-import gzip
-import fastapi as FastAPI
+from fastapi import FastAPI
 
 app=FastAPI
 
@@ -9,9 +8,8 @@ def home():
     return {"API consultas Steam"}
 
 
-@app.get("/PlayTimeGenre/{genero}")
-def PlayTimeGenre(genero: str):
-  
+@app.get('/PlayTimeGenre/{genero}')
+def PlayTimeGenre(genero: str):  
   try:
     consulta_1 = pd.read_csv('../data/consultas/PlayTimeGenre.csv.gz',compression='gzip')
     year_max =consulta_1[consulta_1['genres'].str.contains(genero)][['year','playtime_forever']].groupby('year').sum().idxmax().iloc[0]
@@ -21,9 +19,8 @@ def PlayTimeGenre(genero: str):
     return {f'ERROR: {e}'}
   
 
-@app.get("/UserForGenre/{genero}")
+@app.get('/UserForGenre/{genero}')
 def UserForGenre(genero: str):
-
   try:
     consulta_2 = pd.read_csv('../data/consultas/UserForGenre.csv.gz',compression='gzip')
     usuario=consulta_2[consulta_2['genres'].str.contains(genero)].sort_values('playtime_forever', ascending=False).iloc[0,1]
