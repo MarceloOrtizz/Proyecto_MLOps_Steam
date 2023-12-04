@@ -14,7 +14,7 @@ def PlayTimeGenre(genero: str):
   try:
     consulta_1 = pd.read_csv('./data/consultas/PlayTimeGenre.csv.gz',compression='gzip')
     year_max =consulta_1[consulta_1['genres'].str.contains(genero)][['year','playtime_forever']].groupby('year').sum().idxmax().iloc[0]
-    return {f"Año de lanzamiento con más horas jugadas para Género {genero}" : {year_max}}
+    return {f"Año de lanzamiento con más horas jugadas para Género {genero}" : {str(year_max)}}
     # Ejemplo de retorno: {"Año de lanzamiento con más horas jugadas para Género X" : 2013}
   except Exception as e :
     return {f'ERROR: {e}'}
