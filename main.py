@@ -61,3 +61,17 @@ def UsersNotRecommend(year: int):
   
   except Exception as e :
     return {f'ERROR: {e}'}
+
+@app.get('/sentiment_analysis/{año}')
+def sentiment_analysis(year):
+  '''Cantidad de reseñas de usuarios para el año dado.'''
+  try:
+    consulta_5 = pd.read_csv('./data/consultas/sentiment_analysis.csv.gz',compression='gzip')
+    valores=consulta_5['sentiment_analysis'][consulta_5['year']==year].value_counts()
+    resultado = {'Negative': valores.get(0, 0),
+        'Neutral': valores.get(1, 0),
+        'Positive': valores.get(2, 0)}
+    return resultado
+
+  except Exception as e :
+    return {f'ERROR: {e}'}
