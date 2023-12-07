@@ -16,7 +16,7 @@ def PlayTimeGenre(genero: str):
     consulta_1 = pd.read_csv('./data/consultas/PlayTimeGenre.csv.gz',compression='gzip')
     year_max =consulta_1[consulta_1['genres'].str.contains(genero)][['year','playtime_forever']].groupby('year').sum().idxmax().iloc[0]
     return {f"Año de lanzamiento con más horas jugadas para Género {genero}" : {str(year_max)}}
-    # Ejemplo de retorno: {"Año de lanzamiento con más horas jugadas para Género X" : 2013}
+
   except Exception as e :
     return {f'ERROR: {e}'}
   
@@ -24,7 +24,7 @@ def PlayTimeGenre(genero: str):
 
 @app.get('/UserForGenre/{genero}')
 def UserForGenre(genero: str):
-
+  '''Debe devolver el usuario que acumula más horas jugadas para el género dado y una lista de la acumulación de horas jugadas desde el año de lanzamiento'''
   try:
     consulta_2 = pd.read_csv('./data/consultas/UserForGenre.csv.gz',compression='gzip')
     consulta_2[['user_id','year','playtime_forever']][consulta_2['genres'].str.contains("Action")].groupby('user_id').sum().sort_values('playtime_forever', ascending=False).reset_index()
