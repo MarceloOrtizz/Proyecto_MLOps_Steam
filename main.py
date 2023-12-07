@@ -21,22 +21,26 @@ def PlayTimeGenre(genero: str):
     return {f'ERROR: {e}'}
   
 
-# @app.get('/UserForGenre/{genero}')
-# def UserForGenre(genero: str):
-#   try:
-#     consulta_2 = pd.read_csv('./data/consultas/UserForGenre.csv.gz',compression='gzip')
-#     usuario=consulta_2[consulta_2['genres'].str.contains(genero)].sort_values('playtime_forever', ascending=False).iloc[0,1]
-#     consulta_2=consulta_2[['year','playtime_forever']][consulta_2['user_id']==usuario][consulta_2[['year','playtime_forever']][consulta_2['user_id']==usuario]['playtime_forever']>0.5]
-#     # paso el df a diccionario
-#     dict_data = consulta_2.to_dict(orient='records')
-#     # aplano el diccionario en una lista
-#     lista = [{'Año': d['year'], 'Horas': int(round(d['playtime_forever'],0))} for d in dict_data]
-#     resultado = {"Usuario con más horas jugadas para Género {}".format(genero): usuario,
-#                 "Horas jugadas": lista}
-#     return resultado
+
+@app.get('/UserForGenre/{genero}')
+def UserForGenre(genero: str):
+
+  try:
+    consulta_2 = pd.read_csv('./data/consultas/UserForGenre.csv.gz',compression='gzip')
+    consulta_2[['user_id','year','playtime_forever']][consulta_2['genres'].str.contains("Action")].groupby('user_id').sum().sort_values('playtime_forever', ascending=False).reset_index()
+    usuario=consulta_2[['user_id','year','playtime_forever']][consulta_2['genres'].str.contains("Action")].groupby('user_id').sum().sort_values('playtime_forever', ascending=False).reset_index().iloc[0,0]
+    consulta_2=consulta_2[['user_id','year','playtime_forever']][consulta_2['user_id']==usuario].groupby(['user_id','year']).sum().reset_index()
+    dict_data = consulta_2.to_dict(orient='records')
+    lista = [{'Año': d['year'], 'Horas': int(round(d['playtime_forever'],0))} for d in dict_data]
+
+    resultado = {"Usuario con más horas jugadas para Género {}".format(genero): usuario,
+                "Horas jugadas": lista}
+    return resultado
   
-#   except Exception as e :
-#     return {f'ERROR: {e}'}
+  except Exception as e :
+    return {f'ERROR: {e}'}
+  
+
 
 @app.get('/UsersRecommend/{año}')
 def UsersRecommend(year: int):
