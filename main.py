@@ -1,5 +1,9 @@
 import pandas as pd
 from fastapi import FastAPI
+import nltk
+from nltk.corpus import stopwords
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 app = FastAPI()
 
@@ -75,5 +79,44 @@ def sentiment_analysis(year: int):
     
     return resultado
 
+  except Exception as e :
+    return {f'ERROR: {e}'}
+  
+@app.get('/sentiment_analysis/{año}')
+def sentiment_analysis(year: int):
+  '''Cantidad de reseñas de usuarios para el año dado.'''
+  try:
+    consulta_5 = pd.read_csv('./data/consultas/sentiment_analysis.csv.gz',compression='gzip')
+    valores=consulta_5['sentiment_analysis'][consulta_5['year']==year].value_counts().reset_index()
+    resultado = {'Negative': str(valores.loc[2, 'count']),
+        'Neutral': str(valores.loc[1, 'count']),
+        'Positive': str(valores.loc[0, 'count'])}
+    
+    return resultado
+
+  except Exception as e :
+    return {f'ERROR: {e}'}
+  
+@app.get('/recomendacion_juego/{id_de_producto}')
+def recomendacion_juego(item_id :int):
+  '''Ingresando el id de producto se recibie una lista con 5 juegos recomendados.'''
+  try:
+    consulta_ml_1 = pd.read_csv('./data/consultas/recomendacion_juego.csv.gz',compression='gzip')
+    nombre_juego = consulta_ml_1.set_index('item_id').loc[item_id].values[0].split(',')[0]
+    stop_words_steams = ['i', 'ii', 'iii','iv']
+    stop = list(stopwords.words('english'))
+    stop += stop_words_steams
+    tf = TfidfVectorizer(stop_words=stop, token_pattern=r'\b[a-zA-Z]\w+\b' )
+    data_vector = tf.fit_transform(consulta_ml_1['features'])
+    data_vector_df = pd.DataFrame(data_vector.toarray(), index=consulta_ml_1['item_id'], columns = tf.get_feature_names_out())
+    vector_similitud_coseno = cosine_similarity(data_vector_df.values)
+    cos_sim_df = pd.DataFrame(vector_similitud_coseno, index=data_vector_df.index, columns=data_vector_df.index)
+    juegos_similares = cos_sim_df.loc[item_id].nlargest(6)
+    top5 = juegos_similares.iloc[1:6]
+    resultado = consulta_ml_1.set_index('item_id').loc[top5.index]['features'].apply(lambda x: x.split(',')[0]).values
+    mensaje = f"Como jugas {nombre_juego} te recomendamos:"
+    juegos_recomendados_str = ', '.join(resultado)
+    resultado_formateado = {mensaje: juegos_recomendados_str}
+    return resultado_formateado
   except Exception as e :
     return {f'ERROR: {e}'}
