@@ -27,8 +27,8 @@ def UserForGenre(genero: str):
   '''Debe devolver el usuario que acumula más horas jugadas para el género dado y una lista de la acumulación de horas jugadas desde el año de lanzamiento'''
   try:
     consulta_2 = pd.read_csv('./data/consultas/UserForGenre.csv.gz',compression='gzip')
-    consulta_2[['user_id','year','playtime_forever']][consulta_2['genres'].str.contains("Action")].groupby('user_id').sum().sort_values('playtime_forever', ascending=False).reset_index()
-    usuario=consulta_2[['user_id','year','playtime_forever']][consulta_2['genres'].str.contains("Action")].groupby('user_id').sum().sort_values('playtime_forever', ascending=False).reset_index().iloc[0,0]
+    consulta_2[['user_id','year','playtime_forever']][consulta_2['genres'].str.contains(genero)].groupby('user_id').sum().sort_values('playtime_forever', ascending=False).reset_index()
+    usuario=consulta_2[['user_id','year','playtime_forever']][consulta_2['genres'].str.contains(genero)].groupby('user_id').sum().sort_values('playtime_forever', ascending=False).reset_index().iloc[0,0]
     consulta_2=consulta_2[['user_id','year','playtime_forever']][consulta_2['user_id']==usuario].groupby(['user_id','year']).sum().reset_index()
     dict_data = consulta_2.to_dict(orient='records')
     lista = [{'Año': d['year'], 'Horas': int(round(d['playtime_forever'],0))} for d in dict_data]
