@@ -102,6 +102,7 @@ def recomendacion_juego(item_id :int):
   '''Ingresando el id de producto se recibie una lista con 5 juegos recomendados.'''
   try:
     consulta_ml_1 = pd.read_csv('./data/consultas/recomendacion_juego.csv.gz',compression='gzip')
+    nltk.download('stopwords')
     nombre_juego = consulta_ml_1.set_index('item_id').loc[item_id].values[0].split(',')[0]
     stop_words_steams = ['i', 'ii', 'iii','iv']
     stop = list(stopwords.words('english'))
