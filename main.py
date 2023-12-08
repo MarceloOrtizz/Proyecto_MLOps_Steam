@@ -84,21 +84,7 @@ def sentiment_analysis(year: int):
   except Exception as e :
     return {f'ERROR: {e}'}
   
-@app.get('/sentiment_analysis/{año}')
-def sentiment_analysis(year: int):
-  '''Cantidad de reseñas de usuarios para el año dado.'''
-  try:
-    consulta_5 = pd.read_csv('./data/consultas/sentiment_analysis.csv.gz',compression='gzip')
-    valores=consulta_5['sentiment_analysis'][consulta_5['year']==year].value_counts().reset_index()
-    resultado = {'Negative': str(valores.loc[2, 'count']),
-        'Neutral': str(valores.loc[1, 'count']),
-        'Positive': str(valores.loc[0, 'count'])}
-    
-    return resultado
 
-  except Exception as e :
-    return {f'ERROR: {e}'}
-  
 @app.get('/recomendacion_juego/{id_de_producto}')
 def recomendacion_juego(item_id :int):
   '''Ingresando el id de producto se recibie una lista con 5 juegos recomendados.'''
