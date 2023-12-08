@@ -7,7 +7,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 app = FastAPI()
 
-consulta_2 = pd.read_csv('./data/consultas/UserForGenre.csv.gz',compression='gzip')
+#consulta_2 = pd.read_csv('./data/consultas/UserForGenre.csv.gz',compression='gzip')
 
 @app.get('/')
 def home():
