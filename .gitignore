@@ -172,3 +172,6 @@ cosas.txt
 
 #Para correr el codigo local y testear diferentes opciones
 main_local.py
+
+#No debo subir csv sin comprimir por el limite de github
+*.csv

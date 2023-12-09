@@ -75,9 +75,9 @@ def sentiment_analysis(year: int):
   try:
     consulta_5 = pd.read_csv('./data/consultas/sentiment_analysis.csv.gz',compression='gzip')
     valores=consulta_5['sentiment_analysis'][consulta_5['year']==year].value_counts().reset_index()
-    resultado = {'Negative': str(valores.loc[2, 'count']),
-        'Neutral': str(valores.loc[1, 'count']),
-        'Positive': str(valores.loc[0, 'count'])}
+    resultado = {'Negative': int(valores.loc[2, 'count']),
+        'Neutral': int(valores.loc[1, 'count']),
+        'Positive': int(valores.loc[0, 'count'])}
     
     return resultado
 
