@@ -1,17 +1,17 @@
-<p align="center"><img src="images\henry.png"></p>
+<p align="center"><img src="images\portada.png"></p>
 
 ## <h1 align=center> Sistema de recomendaciones de Steam </h1>
 
 ¡Bienvenido al repositorio del sistema de recomendación de videojuegos de Steam!
-Este proyecto comienza con el desafío de crear un sistema de recomendación de videojuegos desde cero que tenga aplicación en datos reales.
+Este proyecto comienza con el desafío de crear un sistema de recomendación de videojuegos desde cero que tenga aplicación en datos reales.<br>
 
-Se parte de datos que surgen de [3 archivos comprimidos](data/original), con diferentes formatos y distintas complicaciones para su lectura.
+Se parte de datos que surgen de [3 archivos comprimidos](data/original), con diferentes formatos y distintas complicaciones para su lectura.<br><br>
 
-<p align="center"><img src="images\ETL.jpg" height=200></p>
+<p align="center"><img src="images\ETL.jpg" height=200></p><br>
 
-En este proyecto comienzo con la información cruda, realizo el correspondiente [ETL](etl_eda) logrando organizar los datos limpios en [3 archivos ordenados](data/limpio/).
+En este proyecto comienzo con la información cruda, realizo el correspondiente [ETL](etl_eda) logrando organizar los datos limpios en [3 archivos ordenados](data/limpio/).<br>
 
-Partiendo de esos datos limpios procedo a filtrar y ordenar la información necesaria para responder específicamente a los endpoints solicitados:
+Partiendo de esos datos limpios procedo a filtrar y ordenar la información necesaria para responder específicamente a los endpoints solicitados:<br><br>
 
 <p align="center"><img src="images\filtrados.jpg" height=200></p>
 
@@ -43,12 +43,14 @@ main.py: contiene el codigo principal donde se usa el framework FastAPI para cre
 /requierements.txt: el archivo donde se especifican las dependencias del proyecto.<br>
 
 # Análisis Exploratorio de Datos (EDA)
-Se llevó a cabo un análisis exploratorio ([EDA](etl_eda/EDA.ipynb)) para investigar relaciones, buscar outliers y descubrir patrones interesantes entre las variables que intervienen en el modelo. 
+Se llevó a cabo un análisis exploratorio ([EDA](etl_eda/EDA.ipynb)) para investigar relaciones, buscar outliers y descubrir patrones interesantes entre las variables que intervienen en el modelo. <br><br>
 
 <p align="center"><img src="images\ml.jpg" height=200></p>
 
 # Modelo de Aprendizaje Automático
-Se implementó un sistema de recomendación ítem-ítem  (usando *similitud del coseno*). La API permite recibir un id de un juego y devuelve una lista con 5 juegos recomendados de caracteristicas similares.
+Se implementó un sistema de recomendación ítem-ítem  (usando [similitud del coseno](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.cosine_similarity.html)). La API permite recibir un id de un juego y devuelve una lista con 5 juegos recomendados de caracteristicas similares.<br><br>
+
+<p align="center"><img src="images\henry.png"></p>
 
 
 
