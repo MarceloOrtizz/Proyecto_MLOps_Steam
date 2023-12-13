@@ -7,7 +7,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 app = FastAPI()
 
-#consulta_2 = pd.read_csv('./data/consultas/UserForGenre.csv.gz',compression='gzip')
+consulta_2 = pd.read_csv('./data/consultas/UserForGenre.csv.gz',compression='gzip')
 nltk.download('stopwords')
 
 @app.get('/')
@@ -31,7 +31,7 @@ def UserForGenre(genero: str):
   '''Debe devolver el usuario que acumula más horas jugadas para el género dado y una lista de la acumulación de horas jugadas desde el año de lanzamiento'''
   global consulta_2
   try:
-    consulta_2 = pd.read_csv('./data/consultas/UserForGenre.csv.gz',compression='gzip')
+    # consulta_2 = pd.read_csv('./data/consultas/UserForGenre.csv.gz',compression='gzip')
     usuario=consulta_2[['user_id','year','playtime_forever']][consulta_2['genres'].str.contains(genero)].groupby('user_id').sum().sort_values('playtime_forever', ascending=False).reset_index().iloc[0,0]
     consulta_gb=consulta_2[['user_id','year','playtime_forever']][consulta_2['user_id']==usuario].groupby(['user_id','year']).sum().reset_index()
     dict_data = consulta_gb.to_dict(orient='records')
@@ -91,9 +91,7 @@ def recomendacion_juego(item_id :int):
   try:
     consulta_ml_1 = pd.read_csv('./data/consultas/recomendacion_juego.csv.gz',compression='gzip')
     nombre_juego = consulta_ml_1.set_index('item_id').loc[item_id].values[0].split(',')[0]
-    stop_words_steams = ['i', 'ii', 'iii','iv']
     stop = list(stopwords.words('english'))
-    stop += stop_words_steams
     tf = TfidfVectorizer(stop_words=stop, token_pattern=r'\b[a-zA-Z]\w+\b' )
     data_vector = tf.fit_transform(consulta_ml_1['features'])
     data_vector_df = pd.DataFrame(data_vector.toarray(), index=consulta_ml_1['item_id'], columns = tf.get_feature_names_out())
