@@ -1,5 +1,6 @@
 import pandas as pd
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 import nltk
 from nltk.corpus import stopwords
 from sklearn.metrics.pairwise import cosine_similarity
@@ -10,9 +11,67 @@ app = FastAPI()
 consulta_2 = pd.read_csv('./data/consultas/UserForGenre.csv.gz',compression='gzip')
 nltk.download('stopwords')
 
-@app.get('/')
-def home():
-    return {"API consultas Steam"}
+@app.get("/", response_class=HTMLResponse)
+async def incio ():
+    principal= """
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Steam</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+            background-color: #ffd700; /* Color amarillo */
+            color: #000; /* Cambiado a negro */
+            position: relative;
+        }
+        h1 {
+            text-align: center;
+        }
+        p {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        a {
+            color: #000; /* Cambiado a negro */
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .footer-text {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 48px; /* Ajustado a un tamaño más grande */
+            font-weight: bold;
+        }
+        img {
+            display: block;
+            margin: auto;
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<img src="https://moonlit-mousse-6e42b3.netlify.app/data.png" alt="Imagen representativa del proyecto">
+
+    <h1>Proyecto Steam: API de consultas sobre la plataforma de juegos Steam</h1>
+    <p><strong>INSTRUCCIONES:</strong> Escribe <a href="/docs">/docs</a> después de la URL actual de esta página para interactuar con la API.</p>
+    <p>El desarrollo de este proyecto se encuentra en <a href="https://github.com/MarceloOrtizz/Proyecto_MLOps_Steam" target="_blank">GitHub</a>.</p>
+    <br><br><br><br>
+    <div class="footer-text"><a href="https://www.soyhenry.com" target="_blank"> #SoyHenry </a></div>
+
+</body>
+</html>
+
+
+        """    
+    return principal
 
 
 @app.get('/PlayTimeGenre/{genero}')
