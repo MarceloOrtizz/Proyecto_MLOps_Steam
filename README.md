@@ -12,7 +12,8 @@ Este proyecto comienza con el desafío de crear un sistema de recomendación de 
 - [Estructura del Repositorio](#estructura-del-repositorio)
 - [Análisis Exploratorio de Datos](#análisis-exploratorio-de-datos-eda)
 - [Modelo de Aprendizaje Automático](#modelo-de-aprendizaje-automático)
-- [Links](#links)
+- [Uso de la API](#como-usar-la-api)
+- [Links (video y deploy)](#links)
 
 
 
@@ -63,6 +64,13 @@ Se implementó un sistema de recomendación ítem-ítem  (usando [similitud del 
 
 + def **recomendacion_juego( *id de producto* )**:
     Ingresando el id de producto, deberíamos recibir una lista con 5 juegos recomendados similares al ingresado. <br><br>
+
+
+# Como usar la API
+1. Clona este repositorio: git clone https://github.com/MarceloOrtizz/Proyecto_MLOps_Steam.git
+2. Instala las dependencias: pip install -r requirements.txt
+3. Ejecuta la API: uvicorn api.main:app --reload
+4. Link local: http://localhost:8000/docs para interactuar con la API.
 
 
 # Links:
