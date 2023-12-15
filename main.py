@@ -61,7 +61,7 @@ async def incio ():
 <img src="https://moonlit-mousse-6e42b3.netlify.app/data.png" alt="Imagen representativa del proyecto">
 
     <h1>Proyecto Steam: API de consultas sobre la plataforma de juegos Steam</h1>
-    <p><strong>INSTRUCCIONES:</strong> Escribe <a href="/docs">/docs</a> después de la URL actual de esta página para interactuar con la API.</p>
+    <p><strong>INSTRUCCIONES:</strong> Escribe <a href="/docs" target="_blank">/docs</a> después de la URL actual de esta página para interactuar con la API.</p>
     <p>El desarrollo de este proyecto se encuentra en <a href="https://github.com/MarceloOrtizz/Proyecto_MLOps_Steam" target="_blank">GitHub</a>.</p>
     <br><br><br><br>
     <div class="footer-text"><a href="https://www.soyhenry.com" target="_blank"> #SoyHenry </a></div>
