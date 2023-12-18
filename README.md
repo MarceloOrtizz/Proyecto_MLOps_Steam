@@ -75,9 +75,9 @@ Se implementó un sistema de recomendación ítem-ítem  (usando [similitud del 
 
 # Links:
 ➮ [Link a Render](https://steam-bk1u.onrender.com) <br>
-➮ [Link al Video](https://youtu.be/0zD-UGCmpto) <br>
+➮ [Link al Video](https://youtu.be/_ZVBS09pq1s) <br>
 
-[![Alt text](https://img.youtube.com/vi/0zD-UGCmpto/0.jpg)](https://youtu.be/0zD-UGCmpto)
+[![Alt text](https://img.youtube.com/vi/_ZVBS09pq1s/0.jpg)](https://youtu.be/_ZVBS09pq1s)
 
 <br><br><br>
 
